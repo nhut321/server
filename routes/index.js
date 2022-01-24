@@ -3,7 +3,7 @@ const auth = require('./auth')
 
 function routes(app) {
 	app.use('/auth', authRouter)
-	app.get('/', (req,res) => {
+	app.get('/', auth, (req,res) => {
 		res.json('test')
 	})
 }

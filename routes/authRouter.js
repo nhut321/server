@@ -1,17 +1,31 @@
 const User = require('../models/User')
 const router = require('express').Router()
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
-router.post('/login', (req,res) => {
+router.post('/login', async (req,res) => {
 	const { email,password } = req.body
+	// try {
+	// 	const user = await User.findOne({email})
+	// 	if(user) {
+	// 		res.json(user)
+	// 	}
+	// } catch(err) {
+	// 	res.json(err)
+	// }
 	User.findOne({email})
 		.then(user => {
 			if(!user) {
 				res.json('Email or password is incorrect')
 			}
 			bcrypt.compare("baconsoi", user.password, function(err, result) {
+				const token = jwt.sign({email}, process.env.SECRET_KEY)
 				if (result == password) {
-					res.json('Login success!')
+					res.status(200).json({
+						success: true,
+						message: 'Login success',
+						token
+					})
 				} else {
 					res.json('Email or password is incorrect')
 				}
