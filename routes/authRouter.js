@@ -13,24 +13,47 @@ router.post('/login', async (req,res) => {
 	// } catch(err) {
 	// 	res.json(err)
 	// }
-	User.findOne({email})
-		.then(user => {
-			if(!user) {
+
+	const user = await User.findOne({email})
+	if(!user) return res.status(401).json({
+		success: false,
+		message: 'Email or password is incorrect'
+	})
+	try {
+		bcrypt.compare("baconsoi", user.password, function(err, result) {
+			const token = jwt.sign({email}, process.env.SECRET_KEY)
+			if (result == password) {
+				res.status(200).json({
+					success: true,
+					message: 'Login success',
+					token
+				})
+			} else {
 				res.json('Email or password is incorrect')
 			}
-			bcrypt.compare("baconsoi", user.password, function(err, result) {
-				const token = jwt.sign({email}, process.env.SECRET_KEY)
-				if (result == password) {
-					res.status(200).json({
-						success: true,
-						message: 'Login success',
-						token
-					})
-				} else {
-					res.json('Email or password is incorrect')
-				}
-			})
 		})
+	} catch (error) {
+		res.json(error)
+	}
+
+	// User.findOne({email})
+	// 	.then(user => {
+	// 		if(!user) {
+	// 			res.json('Email or password is incorrect')
+	// 		}
+	// 			bcrypt.compare("baconsoi", user.password, function(err, result) {
+	// 				const token = jwt.sign({email}, process.env.SECRET_KEY)
+	// 				if (result == password) {
+	// 					res.status(200).json({
+	// 						success: true,
+	// 						message: 'Login success',
+	// 						token
+	// 					})
+	// 				} else {
+	// 					res.json('Email or password is incorrect')
+	// 				}
+	// 			})
+	// 	})
 })
 
 router.post('/register', async (req,res) => {
