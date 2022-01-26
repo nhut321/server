@@ -6,7 +6,10 @@ function routes(app) {
 	app.use('/music', musicRouter)
 	app.use('/auth', authRouter)
 	app.get('/', auth, (req,res) => {
-		res.json('test')
+		res.status(200).json({
+			isAuth: true,
+			message: 'Authorizated'
+		})
 	})
 }
 

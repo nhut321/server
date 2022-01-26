@@ -15,9 +15,9 @@ router.post('/login', async (req,res) => {
 	// }
 
 	const user = await User.findOne({email})
-	if(!user) return res.status(401).json({
+	if(!user) return res.json({
 		success: false,
-		message: 'Email or password is incorrect'
+		message: 'Email not found'
 	})
 	try {
 		bcrypt.compare("baconsoi", user.password, function(err, result) {
@@ -29,7 +29,10 @@ router.post('/login', async (req,res) => {
 					token
 				})
 			} else {
-				res.json('Email or password is incorrect')
+				res.json({
+					success: false,
+					message: 'Email or password is incorrect'
+				})
 			}
 		})
 	} catch (error) {
