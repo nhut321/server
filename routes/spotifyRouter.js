@@ -14,9 +14,9 @@ router.post('/login', (req,res) => {
 	spotifyApi.authorizationCodeGrant(code)
 		.then(data => {
 			res.json({
-				accessToken: data.access_token,
-				refreshToken: data.refresh_token,
-				expiresIn: data.expires_in
+				accessToken: data.body.access_token,
+				refreshToken: data.body.refresh_token,
+				expiresIn: data.body.expires_in
 			})
 		})
 		.catch(err => {
