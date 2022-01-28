@@ -1,6 +1,6 @@
 const authRouter = require('./authRouter')
 const auth = require('./auth')
-const musicRouter = require('./musicRouter')]
+const musicRouter = require('./musicRouter')
 const spotifyRouter = require('./spotifyRouter')
 
 function routes(app) {
