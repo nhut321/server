@@ -12,6 +12,10 @@ function PostController() {
 		post.save()
 		res.status(200).json('Create successfully!!!')
 	}
+	this.getOnePost = async function(req,res) {
+		await Post.findOne({_id})
+				.then(data => res.json(data))
+	}
 	this.deletePost = function(req,res) {
 		
 	}
