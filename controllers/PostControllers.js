@@ -13,7 +13,8 @@ function PostController() {
 		res.status(200).json('Create successfully!!!')
 	}
 	this.getOnePost = async function(req,res) {
-		await Post.findOne({_id})
+		const id = req.params._id
+		await Post.findOne({_id: id})
 				.then(data => res.json(data))
 	}
 	this.deletePost = function(req,res) {
