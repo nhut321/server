@@ -10,6 +10,7 @@ function PostController() {
 		const {title, description, img} = req.body
 		const post = new Post({title, description, img})
 		post.save()
+		res.status(200).json('Create successfully!!!')
 	}
 	this.deletePost = function(req,res) {
 		
