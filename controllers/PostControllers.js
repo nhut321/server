@@ -7,9 +7,9 @@ function PostController() {
 	res.status(200).json(post)
 	}
 	this.createPost = function(req,res) {
-		const {title, description} = req.body
-		const post = new Post({title, description})
-		res.json(post)
+		const {title, description, img} = req.body
+		const post = new Post({title, description, img})
+		post.save()
 	}
 	this.deletePost = function(req,res) {
 		
