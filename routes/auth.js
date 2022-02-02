@@ -6,20 +6,16 @@ function auth(req,res,next) {
 	if(!token) {
 		return res.status(401).json('Access token not found!')
 	}
-	if(token) {
-		const newToken = token.split(' ')[1]
-		try {
-			const decoded = jwt.verify(newToken, process.env.SECRET_KEY)
-			req.user = decoded
-			next() 
+	try {
+		const decoded = jwt.verify(token, process.env.SECRET_KEY)
+		req.user = decoded
+		next() 
 
-		} catch(err) {
-			return res.status(400).json({
-				success: false,
-				message: 'Invalid token'
-			})
-		}
-
+	} catch(err) {
+		return res.status(400).json({
+			success: false,
+			message: 'Invalid token'
+		})
 	}
 }
 

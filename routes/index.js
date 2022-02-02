@@ -11,7 +11,7 @@ function routes(app) {
 	app.use('/music', musicRouter)
 	app.use('/auth', authRouter)
 	app.get('/', auth, async (req,res) => {
-		const user = await User.findOne({req.user})
+		const user = await User.findOne({user: req.user})
 		if (!user) return res.status(400).json('User not found!')
 
 		try {
