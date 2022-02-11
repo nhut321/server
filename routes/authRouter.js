@@ -20,6 +20,7 @@ router.post('/login', async (req,res) => {
 		message: 'Email not found'
 	})
 	try {
+		// console.log(user)
 		bcrypt.compare("baconsoi", user.password, function(err, result) {
 			const token = jwt.sign({email}, process.env.SECRET_KEY)
 			if (result == password) {
