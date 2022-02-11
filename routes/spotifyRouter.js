@@ -2,7 +2,7 @@ const router = require('express').Router()
 const spotifyWebApi = require('spotify-web-api-node')
 
 const credentials = {
-	redirectUri: 'http://localhost:3000/mymusic',
+	redirectUri: 'http://localhost:3000',
 	clientId: '0e7a251759ae45dd84159c33ffc1309b',
 	clientSecret: '0d0b9b33c0a847eaa53d9d54ebb33334'
 }
