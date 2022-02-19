@@ -7,6 +7,27 @@ const credentials = {
 	clientSecret: '0d0b9b33c0a847eaa53d9d54ebb33334'
 }
 
+router.post('/refresh', (req,res) => {
+	const refreshToken = req.body.refreshToken
+	const spotifyApi = new spotifyWebApi({
+		redirectUri: credentials.redirectUri,
+		clientId: credentials.clientId,
+		clientSecret: credentials.clientSecret,
+		refreshToken
+	})
+	spotifyApi.refreshAccessToken().then(
+		(data) => {
+			res.json({
+				accessToken: data.body.access_token,
+				expiresIn: data.body.expires_in
+			})
+		}
+	).catch((err) => {
+		res.status(400).json(err)
+	})
+})
+
+
 router.post('/login', (req,res) => {
 	const spotifyApi = new spotifyWebApi(credentials)
 
@@ -20,7 +41,6 @@ router.post('/login', (req,res) => {
 			})
 		})
 		.catch(err => {
-			console.log(err)
 			res.sendStatus(400)
 		})
 })
