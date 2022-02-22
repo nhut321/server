@@ -6,7 +6,7 @@ const postRouter = require('./postRouter')
 const User = require('../models/User')
 
 function routes(app) {
-	app.use('/post', postRouter)
+	app.use('/post',auth, postRouter)
 	app.use('/spotify', spotifyRouter)
 	app.use('/music', musicRouter)
 	app.use('/auth', authRouter)

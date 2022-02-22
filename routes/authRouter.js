@@ -22,7 +22,7 @@ router.post('/login', async (req,res) => {
 	try {
 		// console.log(user)
 		bcrypt.compare("baconsoi", user.password, function(err, result) {
-			const token = jwt.sign({email}, process.env.SECRET_KEY)
+			const token = jwt.sign({userId:user._id,email}, process.env.SECRET_KEY)
 			if (result == password) {
 				res.status(200).json({
 					success: true,
@@ -74,7 +74,11 @@ router.post('/register', async (req,res) => {
 			    bcrypt.hash("baconsoi", salt, function(err, hash) {
 			    	password = hash
 			        const newUser = User({email,password})
-			        res.json(newUser)
+			        newUser.save()
+					res.status(200).json({
+						success: true,
+						message: 'Register success!'
+					})
 			    });
 			});
 		}
