@@ -11,7 +11,7 @@ function PostController() {
 		const {title, description, img, userId} = req.body
 		console.log(req.body)
 		const post = new Post({title, description, img, userId})
-		// post.save()
+		post.save()
 		res.status(200).json({
 			data: post
 		})
