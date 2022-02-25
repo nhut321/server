@@ -4,9 +4,7 @@ const PostCtrl = require('../controllers/PostControllers')
 
 router.post('/create', PostCtrl.createPost)
 
-router.delete('/delete', (req,res) => {
-	
-})
+router.delete('/delete/:_id', PostCtrl.deletePost)
 router.get('/detail/:_id', PostCtrl.getOnePost)
 router.get('/', PostCtrl.getPost)
 
