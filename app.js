@@ -6,7 +6,7 @@ const port = process.env.PORT
 const http = require('http')
 const server = http.createServer(app)
 const io = require('socket.io')(server, {
-	cors: {    origin: "http://localhost:3000",    methods: ["GET", "POST"]  }
+	cors: {    origin: "https://nhut321.github.io/mern-app",    methods: ["GET", "POST"]  }
 })
 
 app.use(cors())
